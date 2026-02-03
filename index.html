@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta del Bar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #1a1a1a;
+            --color-secondary: #d4af37;
+            --color-accent: #8b4513;
+            --color-bg: #f8f6f1;
+            --color-text: #2c2c2c;
+            --color-text-light: #6b6b6b;
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Lato', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+
+        /* Header con logo */
+        .header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, #2d2d2d 100%);
+            color: var(--color-secondary);
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .logo {
+            max-width: 120px;
+            height: auto;
+            opacity: 0;
+            animation: fadeInDown 0.8s ease forwards;
+        }
+
+        /* INSTRUCCIÓN: Para cambiar el logo, simplemente reemplaza la URL en el atributo src de la imagen con clase "logo" */
+        
+        .header-text {
+            flex: 1;
+        }
+
+        .header h1 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+            opacity: 0;
+            animation: fadeInDown 0.8s ease 0.2s forwards;
+        }
+
+        .header p {
+            font-size: 0.85rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            opacity: 0;
+            animation: fadeInDown 0.8s ease 0.4s forwards;
+        }
+
+        /* Contenedor principal */
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Menú lateral */
+        .sidebar {
+            width: 280px;
+            background: white;
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.05);
+            padding: 2rem 0;
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+            opacity: 0;
+            animation: slideInLeft 0.6s ease 0.5s forwards;
+        }
+
+        .sidebar h3 {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            color: var(--color-primary);
+            padding: 0 2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .sidebar nav ul {
+            list-style: none;
+        }
+
+        .sidebar nav a {
+            display: block;
+            padding: 0.9rem 2rem;
+            color: var(--color-text);
+            text-decoration: none;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar nav a:hover,
+        .sidebar nav a.active {
+            background: linear-gradient(90deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%);
+            color: var(--color-accent);
+            border-left-color: var(--color-secondary);
+            padding-left: 2.5rem;
+        }
+
+        /* Contenido principal */
+        .main-content {
+            flex: 1;
+            padding: 2rem 3rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.6s forwards;
+        }
+
+        /* Secciones de menú */
+        .menu-section {
+            margin-bottom: 4rem;
+        }
+
+        .menu-section h2 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .menu-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--color-secondary);
+        }
+
+        .section-description {
+            color: var(--color-text-light);
+            font-style: italic;
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        /* Items del menú */
+        .menu-items {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .menu-item {
+            background: white;
+            padding: 1.8rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .menu-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-left-color: var(--color-secondary);
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.8rem;
+        }
+
+        .item-name {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            color: var(--color-primary);
+            font-weight: 700;
+        }
+
+        .item-price {
+            font-size: 1.3rem;
+            color: var(--color-secondary);
+            font-weight: 700;
+            white-space: nowrap;
+            margin-left: 1rem;
+        }
+
+        .item-description {
+            color: var(--color-text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .item-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--color-accent);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Botón hamburguesa */
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: var(--color-secondary);
+            border: none;
+            padding: 12px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle:hover {
+            background: var(--color-accent);
+            transform: scale(1.05);
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Overlay oscuro */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+        }
+
+        /* Responsive - Mobile */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                position: fixed;
+                left: -280px;
+                top: 0;
+                width: 280px;
+                height: 100vh;
+                background: white;
+                box-shadow: 4px 0 15px rgba(0, 0, 0, 0.2);
+                padding: 5rem 0 2rem 0;
+                z-index: 999;
+                transition: left 0.3s ease;
+                overflow-y: auto;
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+
+            .overlay {
+                display: block;
+            }
+
+            .sidebar h3 {
+                padding: 0 1.5rem;
+            }
+
+            .sidebar nav a {
+                padding: 0.8rem 1.5rem;
+            }
+
+            .sidebar nav a:hover,
+            .sidebar nav a.active {
+                padding-left: 2rem;
+            }
+
+            .main-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .header {
+                padding: 1rem 1rem 1rem 5rem;
+                gap: 1rem;
+            }
+
+            .logo {
+                max-width: 80px;
+            }
+
+            .header h1 {
+                font-size: 1.4rem;
+            }
+
+            .header p {
+                font-size: 0.7rem;
+                letter-spacing: 2px;
+            }
+
+            .menu-section h2 {
+                font-size: 2rem;
+            }
+
+            .menu-item {
+                padding: 1.5rem;
+            }
+
+            .item-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .item-price {
+                margin-left: 0;
+                margin-top: 0.5rem;
+            }
+        }
+
+        /* Animaciones */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--color-primary);
+            color: var(--color-secondary);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <!-- Botón hamburguesa para móvil -->
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Overlay oscuro -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Header con logo -->
+    <header class="header">
+        <!-- INSTRUCCIÓN: Cambia el src de esta imagen por la URL de tu logo -->
+        <img src="img/logotipo.jpg" alt="Logo del Bar" class="logo">
+        
+        <div class="header-text">
+            <!-- INSTRUCCIÓN: Cambia el nombre de tu bar aquí -->
+            <h1>CAFÉ-BAR LA PULPE</h1>
+            <p>Bar & Tapas</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Menú lateral -->
+        <aside class="sidebar">
+            <h3>Menú</h3>
+            <nav>
+                <ul>
+                    <li><a href="#tapas" class="active">EN NUESTROS CALDEIROS</a></li>
+                    <li><a href="#raciones">BOCADILLOS</a></li>
+                    <li><a href="#bebidas">TIERRA Y MAR</a></li>
+                    <li><a href="#cervezas">Cervezas</a></li>
+                    <li><a href="#vinos">Vinos</a></li>
+                    <li><a href="#postres">Postres</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Contenido principal -->
+        <main class="main-content">
+            <!-- SECCIÓN: TAPAS -->
+            <section id="tapas" class="menu-section">
+                <h2>Tapas</h2>
+                <p class="section-description">Pequeñas delicias para compartir</p>
+                
+                <div class="menu-items">
+                    <!-- INSTRUCCIÓN: Para añadir un plato, copia todo el bloque "menu-item" y pégalo aquí -->
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Tabla de pulpo a la gallega</h3>
+                            <span class="item-price">16,90€</span>
+                        </div>
+                        <p class="item-description">
+                            Tabla de madera con pulpo al estilo Gallego. 
+                        </p>
+                        <div class="item-tags">
+                            <span class="tag">Popular</span>
+                            <span class="tag">Especialidad</span>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Cuenco de Patatas</h3>
+                            <span class="item-price">2,20€</span>
+                        </div>
+                        <p class="item-description">
+                            Cuenco de patatas como acompañamiento de nuestro pulpo.
+                        </p>
+                        <div class="item-tags">
+                            <span class="tag">Casero</span>
+                            <span class="tag">Acompañamiento</span>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Ensalada de tomate, cebolla y ventresca</h3>
+                            <span class="item-price">12,90€</span>
+                        </div>
+                        <p class="item-description">
+                            Plato de ensalada con tomate y cebolla picada con ventresca por encima, ideal y ligera para el centro.
+                        </p>
+                        <div class="item-tags">
+                            <span class="tag">Casero</span>
+                            <span class="tag">Popular</span>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Croquetas Cassera</h3>
+                            <span class="item-price">3,50€</span>
+                        </div>
+                        <p class="item-description">
+                            Croquetas cremosas de jamón ibérico, elaboradas con bechamel tradicional. Unidad.
+                        </p>
+                        <div class="item-tags">
+                            <span class="tag">Casero</span>
+                            <span class="tag">Popular</span>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Patatas Bravas</h3>
+                            <span class="item-price">4,50€</span>
+                        </div>
+                        <p class="item-description">
+                            Patatas fritas con nuestra salsa brava picante y alioli casero.
+                        </p>
+                        <div class="item-tags">
+                            <span class="tag">Picante</span>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Jamón Ibérico</h3>
+                            <span class="item-price">12,00€</span>
+                        </div>
+                        <p class="item-description">
+                            Lonchas de jamón ibérico de bellota cortado a cuchillo, con pan con tomate.
+                        </p>
+                        <div class="item-tags">
+                            <span class="tag">Premium</span>
+                            <span class="tag">Ibérico</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN: RACIONES -->
+            <section id="raciones" class="menu-section">
+                <h2>Raciones</h2>
+                <p class="section-description">Platos más generosos para disfrutar</p>
+                
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Pulpo a la Gallega</h3>
+                            <span class="item-price">18,50€</span>
+                        </div>
+                        <p class="item-description">
+                            Pulpo cocido sobre cama de patata, aceite de oliva virgen extra, pimentón y sal gorda.
+                        </p>
+                        <div class="item-tags">
+                            <span class="tag">Especialidad</span>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Calamares a la Romana</h3>
+                            <span class="item-price">11,00€</span>
+                        </div>
+                        <p class="item-description">
+                            Calamares rebozados crujientes con limón. Perfectos para compartir.
+                        </p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Tabla de Quesos</h3>
+                            <span class="item-price">14,50€</span>
+                        </div>
+                        <p class="item-description">
+                            Selección de quesos artesanos con membrillo, nueces y pan tostado.
+                        </p>
+                        <div class="item-tags">
+                            <span class="tag">Artesano</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN: BEBIDAS -->
+            <section id="bebidas" class="menu-section">
+                <h2>Bebidas</h2>
+                <p class="section-description">Refrescos y bebidas sin alcohol</p>
+                
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Refresco</h3>
+                            <span class="item-price">2,50€</span>
+                        </div>
+                        <p class="item-description">
+                            Coca-Cola, Fanta, Sprite, Nestea, Aquarius.
+                        </p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Agua Mineral</h3>
+                            <span class="item-price">1,80€</span>
+                        </div>
+                        <p class="item-description">
+                            Con gas o sin gas. 50cl.
+                        </p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Zumo Natural</h3>
+                            <span class="item-price">3,50€</span>
+                        </div>
+                        <p class="item-description">
+                            Naranja recién exprimida.
+                        </p>
+                        <div class="item-tags">
+                            <span class="tag">Natural</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN: CERVEZAS -->
+            <section id="cervezas" class="menu-section">
+                <h2>Cervezas</h2>
+                <p class="section-description">Selección de cervezas nacionales e importadas</p>
+                
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Caña</h3>
+                            <span class="item-price">2,00€</span>
+                        </div>
+                        <p class="item-description">
+                            Cerveza de barril bien tirada y fría.
+                        </p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Cerveza Artesana</h3>
+                            <span class="item-price">4,50€</span>
+                        </div>
+                        <p class="item-description">
+                            Selección rotativa de cervezas artesanas locales. Pregunta por las disponibles.
+                        </p>
+                        <div class="item-tags">
+                            <span class="tag">Artesana</span>
+                            <span class="tag">Local</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN: VINOS -->
+            <section id="vinos" class="menu-section">
+                <h2>Vinos</h2>
+                <p class="section-description">Carta de vinos cuidadosamente seleccionados</p>
+                
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Vino de la Casa</h3>
+                            <span class="item-price">3,50€</span>
+                        </div>
+                        <p class="item-description">
+                            Copa de vino tinto o blanco. D.O. Rioja.
+                        </p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Ribera del Duero Crianza</h3>
+                            <span class="item-price">15,00€</span>
+                        </div>
+                        <p class="item-description">
+                            Botella. Vino con cuerpo, 12 meses en barrica. Ideal para carnes.
+                        </p>
+                        <div class="item-tags">
+                            <span class="tag">D.O. Ribera</span>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Albariño</h3>
+                            <span class="item-price">14,00€</span>
+                        </div>
+                        <p class="item-description">
+                            Botella. Vino blanco fresco y afrutado. Perfecto para pescados.
+                        </p>
+                        <div class="item-tags">
+                            <span class="tag">D.O. Rías Baixas</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN: POSTRES -->
+            <section id="postres" class="menu-section">
+                <h2>Postres</h2>
+                <p class="section-description">El dulce final perfecto</p>
+                
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Tarta de Queso</h3>
+                            <span class="item-price">5,50€</span>
+                        </div>
+                        <p class="item-description">
+                            Cremosa tarta de queso casera con mermelada de frutos rojos.
+                        </p>
+                        <div class="item-tags">
+                            <span class="tag">Casero</span>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Flan de Huevo</h3>
+                            <span class="item-price">4,00€</span>
+                        </div>
+                        <p class="item-description">
+                            Flan tradicional elaborado con huevos frescos y caramelo líquido.
+                        </p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header">
+                            <h3 class="item-name">Tiramisú</h3>
+                            <span class="item-price">5,00€</span>
+                        </div>
+                        <p class="item-description">
+                            Postre italiano con café, mascarpone y cacao.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <p style="text-align: center;">Si tiene ó sospecha que puede ser intolerante a algun alimento, hágalo saber a nuestro personal.</p>
+
+    <!-- Footer -->
+    <footer class="footer">
+        
+        <p>Nº Telefono: 640 68 01 46</p>
+        <p>© 2024 El Rincón Bar & Tapas | Todos los derechos reservados</p>
+        
+    </footer>
+
+    <script>
+        // Elementos del DOM
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.querySelector('.sidebar');
+        const overlay = document.getElementById('overlay');
+        const navLinks = document.querySelectorAll('.sidebar a');
+
+        // Función para abrir/cerrar menú
+        function toggleMenu() {
+            menuToggle.classList.toggle('active');
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            // Prevenir scroll del body cuando el menú está abierto
+            if (sidebar.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Función para cerrar menú
+        function closeMenu() {
+            menuToggle.classList.remove('active');
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Event listeners
+        menuToggle.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', closeMenu);
+
+        // Navegación suave
+        document.querySelectorAll('.sidebar a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Quitar clase active de todos los enlaces
+                document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
+                
+                // Añadir clase active al enlace clickeado
+                this.classList.add('active');
+                
+                // Cerrar menú en móvil
+                if (window.innerWidth <= 768) {
+                    closeMenu();
+                }
+                
+                // Scroll suave a la sección
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    const headerHeight = document.querySelector('.header').offsetHeight;
+                    const targetPosition = targetSection.offsetTop - headerHeight - 20;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Detectar sección visible al hacer scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.menu-section');
+            const navLinks = document.querySelectorAll('.sidebar a');
+            
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                const headerHeight = document.querySelector('.header').offsetHeight;
+                
+                if (window.pageYOffset >= (sectionTop - headerHeight - 100)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Cerrar menú al cambiar tamaño de ventana
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                closeMenu();
+            }
+        });
+    </script>
+</body>
+</html>
