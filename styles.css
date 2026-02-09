@@ -97,7 +97,17 @@ h4 {
 .brand span {
     background: linear-gradient(135deg, #e8d0b3 0%, #c48f5a 100%);
     -webkit-background-clip: text;
+    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+.brand-logo {
+    height: 45px;
+    width: 45px;
+    /* Enforce square for perfect circle */
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--color-accent);
 }
 
 .nav-menu {
@@ -193,7 +203,7 @@ h4 {
     background-color: #1a1d24;
     background-image:
         linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-        url('https://images.unsplash.com/photo-1559339352-11d035aa65de?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+        url('img/fondo_inicio.webp');
     /* Generic food background if local image fails */
     background-size: cover;
     background-position: center;
