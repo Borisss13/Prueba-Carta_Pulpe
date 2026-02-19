@@ -15,7 +15,7 @@ const menuData = [
                 "name": "Cuenco de Patatas",
                 "price": 2.70,
                 "description": "Cachelos con aceite de oliva y pimentón.",
-                "image": "https://images.unsplash.com/photo-1546241072-48010ad28c2c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                "image": ""
             },
             {
                 "name": "Ensalada Ventresca",
