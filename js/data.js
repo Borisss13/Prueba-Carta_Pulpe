@@ -15,31 +15,26 @@ const menuData = [
                 "name": "Cuenco de Patatas",
                 "price": 2.70,
                 "description": "Cachelos con aceite de oliva y pimentón.",
-                "image": ""
             },
             {
                 "name": "Ensalada Ventresca",
                 "price": 12.90,
                 "description": "Tomate fresco, cebolla y ventresca de atún de alta calidad.",
-                "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
             },
             {
                 "name": "Anchoas del Cantábrico",
                 "price": 16.20,
                 "description": "Selección premium, 12/15 unidades.",
-                "image": "https://images.unsplash.com/photo-1599481238640-4c1288750d7a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
             },
             {
                 "name": "Torta del Casar",
                 "price": 13.70,
                 "description": "Ración media, cremosa e intensa.",
-                "image": "https://images.unsplash.com/photo-1510629954389-c1e0da47d414?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
             },
             {
                 "name": "Zamburiñas (8 uds.)",
                 "price": 14.90,
                 "description": "A la plancha con un toque de limón y perejil.",
-                "image": "https://images.unsplash.com/photo-1534422298391-e4f8c170dbbd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
             },
             {
                 "name": "Calamares \"a lo Otero\"",
