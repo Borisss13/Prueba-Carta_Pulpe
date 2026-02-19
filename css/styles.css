@@ -170,8 +170,8 @@ h4 {
 
 /* --- HERO SECTION --- */
 .hero {
-    height: 90vh;
-    min-height: 600px;
+    height: 85vh;
+    min-height: 500px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -203,7 +203,7 @@ h4 {
     background-color: #1a1d24;
     background-image:
         linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-        url('img/fondo_inicio.webp');
+        url('../img/fondo_inicio.webp');
     /* Generic food background if local image fails */
     background-size: cover;
     background-position: center;
@@ -327,19 +327,19 @@ h4 {
 
 /* --- MENU GRID --- */
 .menu-wrapper {
-    padding: 4rem 0 8rem;
+    padding: 2rem 0 4rem;
 }
 
 .section-title {
     text-align: center;
-    margin: 6rem 0 4rem;
+    margin: 3rem 0 2rem;
     position: relative;
 }
 
 .section-title h2 {
-    font-size: 3rem;
+    font-size: 2rem;
     color: var(--color-text-primary);
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
 }
 
 .section-title h2 span {
@@ -348,92 +348,129 @@ h4 {
 
 .section-title p {
     color: var(--color-text-secondary);
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     max-width: 600px;
     margin: 0 auto;
+    padding: 0 1rem;
 }
 
 .section-divider {
     width: 60px;
     height: 2px;
     background: var(--color-accent);
-    margin: 1.5rem auto;
+    margin: 1rem auto;
     opacity: 0.5;
 }
 
+/* Mobile-first: 1 column */
 .menu-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 2rem;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    align-items: stretch;
 }
 
 /* Special layout for "En Nuestros Caldeiros" */
-.grid-caldeiros {
-    grid-template-columns: repeat(2, 1fr);
+.menu-category {
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    position: relative;
+    margin-bottom: 3rem;
 }
 
-@media (min-width: 968px) {
-    .grid-caldeiros .menu-item-hero {
-        grid-column: 1 / -1;
-        display: flex;
-        align-items: center;
-        gap: 3rem;
-        background: linear-gradient(145deg, #222630 0%, #1a1d24 100%);
-        padding: 3rem;
-    }
+.menu-category::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: var(--color-accent);
+    opacity: 0.3;
+}
 
-    .menu-item-hero .hero-image-placeholder {
-        flex: 1;
-        aspect-ratio: 16/9;
-        background: #2a2e38;
-        border-radius: 12px;
-        overflow: hidden;
-    }
+.menu-item-hero {
+    grid-column: 1 / -1;
+}
 
-    .menu-item-hero .item-details {
-        flex: 1;
-    }
+/* Hero image - the prominent dish photo */
+.hero-image-placeholder {
+    width: 100%;
+    height: 250px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #2a2e38;
+}
+
+.hero-image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Regular item image - thumbnail above the item details */
+.item-image-wrap {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: -0.5rem 0 1rem 0;
+    background: #2a2e38;
+}
+
+.item-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.menu-item:hover .item-image-wrap img {
+    transform: scale(1.05);
 }
 
 .menu-item {
     background: var(--color-surface);
     border: 1px solid var(--color-border);
-    padding: 2rem;
+    padding: 1.25rem;
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     position: relative;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    border-radius: 4px;
+    border-radius: 12px;
+    /* Equal height: flex stretch from grid + flex-grow on button */
 }
 
 .menu-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-    border-color: rgba(196, 143, 90, 0.4);
-    cursor: pointer;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    border-color: rgba(196, 143, 90, 0.3);
 }
 
 .item-header {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 0.75rem;
-    padding-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
     border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
 }
 
 .item-name {
     font-family: var(--font-display);
-    font-size: 1.3rem;
+    font-size: 1.15rem;
     color: var(--color-text-primary);
     flex-grow: 1;
-    padding-right: 1rem;
+    padding-right: 0.75rem;
 }
 
 .item-price {
     font-family: var(--font-display);
-    font-size: 1.3rem;
+    font-size: 1.15rem;
     color: var(--color-accent);
     font-weight: 600;
     white-space: nowrap;
@@ -441,30 +478,26 @@ h4 {
 
 .item-desc {
     color: var(--color-text-secondary);
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     font-weight: 300;
-}
-
-.bocadillos-grid {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    flex-grow: 1;
 }
 
 /* --- CART & BUTTONS --- */
 
 .add-btn {
     margin-top: auto;
-    padding: 0.5rem 0;
+    padding: 0.6rem 0;
     width: 100%;
-    margin-top: 1.5rem;
     background: transparent;
     border: 1px solid var(--color-accent);
     color: var(--color-accent);
     text-transform: uppercase;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     letter-spacing: 0.1em;
     cursor: pointer;
     transition: all 0.3s ease;
-    border-radius: 4px;
+    border-radius: 8px;
 }
 
 .add-btn:hover {
@@ -711,26 +744,107 @@ h4 {
     font-size: 0.85rem;
 }
 
-/* --- RESPONSIVE --- */
-@media (max-width: 968px) {
-    .hero-title {
-        font-size: 3.5rem;
+/* =============================================
+   RESPONSIVE — Mobile-first approach
+   ============================================= */
+
+/* ---- Tablet (≥ 600px) ---- */
+@media (min-width: 600px) {
+    .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
     }
 
-    .grid-caldeiros {
-        grid-template-columns: 1fr;
+    .section-title h2 {
+        font-size: 2.5rem;
     }
 
-    .menu-item-hero {
-        flex-direction: column;
+    .section-title {
+        margin: 4rem 0 2.5rem;
     }
 
-    .menu-item-hero .hero-image-placeholder {
-        width: 100%;
-        height: 200px;
+    .menu-wrapper {
+        padding: 3rem 0 6rem;
+    }
+
+    .menu-category {
+        margin-bottom: 5rem;
+    }
+
+    .hero-image-placeholder {
+        height: 300px;
+    }
+
+    .menu-item {
+        padding: 1.5rem;
     }
 }
 
+/* ---- Desktop (≥ 968px) ---- */
+@media (min-width: 968px) {
+    .menu-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+
+    .section-title h2 {
+        font-size: 3rem;
+    }
+
+    .section-title {
+        margin: 5rem 0 3rem;
+    }
+
+    .menu-wrapper {
+        padding: 4rem 0 8rem;
+    }
+
+    .menu-category {
+        margin-bottom: 6rem;
+        padding-top: 3rem;
+    }
+
+    .menu-category::before {
+        width: 100px;
+    }
+
+    .menu-item {
+        padding: 1.75rem;
+    }
+
+    .item-name {
+        font-size: 1.3rem;
+    }
+
+    .item-price {
+        font-size: 1.3rem;
+    }
+
+    .item-desc {
+        font-size: 0.95rem;
+    }
+
+    /* Hero dish side-by-side on desktop */
+    .menu-item-hero {
+        display: flex;
+        align-items: center;
+        gap: 2.5rem;
+        background: linear-gradient(145deg, #222630 0%, #1a1d24 100%);
+        padding: 2rem;
+    }
+
+    .menu-item-hero .hero-image-placeholder {
+        flex: 0 0 45%;
+        height: 280px;
+        border-radius: 12px;
+    }
+
+    .menu-item-hero .item-details {
+        flex: 1;
+    }
+}
+
+/* ---- Max-width based for mobile nav ---- */
 @media (max-width: 768px) {
     .nav-menu {
         position: fixed;
@@ -744,6 +858,7 @@ h4 {
         padding: 2rem;
         transition: 0.4s ease;
         box-shadow: -10px 0 30px rgba(0, 0, 0, 0.8);
+        z-index: 1001;
     }
 
     .nav-menu.active {
@@ -754,17 +869,91 @@ h4 {
         display: flex;
     }
 
+    .hero {
+        height: 70vh;
+        min-height: 400px;
+    }
+
     .hero-title {
         font-size: 2.5rem;
     }
 
+    .hero-subtitle {
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+    }
+
+    .hero-btn {
+        padding: 0.75rem 2rem;
+        font-size: 0.75rem;
+    }
+
     .container {
-        padding: 0 1.5rem;
+        padding: 0 1rem;
+    }
+
+    .category-nav-wrapper {
+        top: 65px;
     }
 
     .category-list {
         justify-content: flex-start;
-        padding: 0 1.5rem;
+        gap: 0.5rem;
+        padding: 0 0.5rem;
+    }
+
+    .category-btn {
+        font-size: 0.75rem;
+        padding: 0.5rem 1rem;
+    }
+
+    /* Footer stacks on mobile */
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .footer {
+        padding: 3rem 0 1.5rem;
+    }
+
+    /* Cart full-width on mobile */
+    .cart-sidebar {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* Philosophy section */
+    #nosotros>div {
+        padding: 2rem !important;
+    }
+
+    #nosotros h2 {
+        font-size: 1.8rem !important;
+    }
+
+    #nosotros p {
+        font-size: 1rem !important;
+    }
+}
+
+/* ---- Small phones (≤ 400px) ---- */
+@media (max-width: 400px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .section-title h2 {
+        font-size: 1.6rem;
+    }
+
+    .brand span {
+        font-size: 1.2rem;
+    }
+
+    .brand-logo {
+        height: 35px;
+        width: 35px;
     }
 }
 

@@ -101,6 +101,122 @@ modal.addEventListener('click', (e) => {
 });
 
 
+// --- DYNAMIC MENU RENDERING ---
+function renderMenu() {
+    if (!window.menuData) return;
+
+    window.menuData.forEach(category => {
+        const categorySection = document.getElementById(category.id);
+        if (!categorySection) return;
+
+        const grid = categorySection.querySelector('.menu-grid');
+        if (!grid) return;
+
+        grid.innerHTML = '';
+
+        category.items.forEach(item => {
+            const itemEl = document.createElement('div');
+            itemEl.className = item.isHero ? 'menu-item menu-item-hero' : 'menu-item';
+            if (item.image) {
+                itemEl.setAttribute('data-image', item.image);
+            }
+
+            let content = '';
+            if (item.isHero && item.image) {
+                content = `
+                    <div class="hero-image-placeholder">
+                        <img src="${item.image}" alt="${item.name}">
+                    </div>
+                    <div class="item-details">
+                        <div class="item-name" style="font-size: 1.8rem; margin-bottom: 0.75rem; color: var(--color-accent);">${item.name}</div>
+                        <div class="item-desc" style="margin-bottom: 1rem;">${item.description || ''}</div>
+                        <div class="item-price" style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">€${item.price.toFixed(2).replace('.', ',')}</div>
+                        <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
+                    </div>
+                `;
+            } else {
+                const imgHtml = item.image ? `<div class="item-image-wrap"><img src="${item.image}" alt="${item.name}"></div>` : '';
+                content = `
+                    ${imgHtml}
+                    <div class="item-header">
+                        <span class="item-name">${item.name}</span>
+                        <span class="item-price">€${item.price.toFixed(2).replace('.', ',')}</span>
+                    </div>
+                    ${item.description ? `<p class="item-desc">${item.description}</p>` : ''}
+                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
+                `;
+            }
+
+            itemEl.innerHTML = content;
+            grid.appendChild(itemEl);
+        });
+    });
+
+    // Re-bind image modal logic for new items
+    bindImageModals();
+}
+
+function bindImageModals() {
+    document.querySelectorAll('.menu-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+            if (e.target.classList.contains('add-btn')) return;
+
+            const imgSrc = item.getAttribute('data-image');
+            const itemNameEl = item.querySelector('.item-name');
+
+            if (imgSrc && itemNameEl) {
+                modalImg.src = imgSrc;
+                modalCaption.innerText = itemNameEl.innerText;
+                modal.style.display = 'flex';
+                setTimeout(() => {
+                    modal.classList.add('active');
+                }, 10);
+            }
+        });
+    });
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    renderSpecialMenu();
+    renderMenu();
+});
+
+// --- SPECIAL MENU RENDERING ---
+function renderSpecialMenu() {
+    const special = window.specialMenu;
+    const container = document.getElementById('special-menu-container');
+    if (!special || !special.active || !container) {
+        if (container) container.style.display = 'none';
+        return;
+    }
+
+    container.style.display = 'block';
+    document.getElementById('special-menu-title').innerText = special.title;
+    document.getElementById('special-menu-desc').innerText = special.description;
+    document.getElementById('special-menu-price').innerText = special.price;
+
+    const fillList = (id, items) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.innerHTML = '';
+        if (items && items.length > 0) {
+            items.forEach(item => {
+                const li = document.createElement('li');
+                li.style.cssText = 'padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-weight: 500;';
+                li.innerHTML = `<i class="fas fa-chevron-right" style="color:var(--color-primary); font-size:0.75rem; margin-right:0.75rem;"></i> ${item}`;
+                el.appendChild(li);
+            });
+        } else {
+            el.innerHTML = '<li style="color:var(--color-text-dim); font-style:italic;">No disponible</li>';
+        }
+    };
+
+    fillList('special-firsts', special.firstCourses);
+    fillList('special-seconds', special.secondCourses);
+    fillList('special-desserts', special.desserts);
+}
+
 /* --- SHOPPING CART LOGIC --- */
 
 let cart = [];

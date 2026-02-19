@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración | La Pulpe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --color-primary: #c48f5a;
+            --color-bg: #0f0f0f;
+            --color-surface: #1a1a1a;
+            --color-border: #333333;
+            --color-text: #ffffff;
+            --color-text-dim: #999999;
+            --color-success: #25D366;
+            --color-danger: #ff4d4d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        body.auth-ok {
+            opacity: 1;
+        }
+
+        .admin-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background-color: var(--color-surface);
+            border-right: 1px solid var(--color-border);
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+        }
+
+        .brand-admin {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .nav-item {
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--color-text-dim);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background-color: rgba(196, 143, 90, 0.1);
+            color: var(--color-primary);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background-color: var(--color-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--color-border);
+            color: var(--color-text);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Special Menu Card */
+        .special-menu-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-primary);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Items Grid */
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--color-surface);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .items-table th {
+            text-align: left;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--color-text-dim);
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+        }
+
+        .items-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .item-info-cell {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .item-thumb {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            object-fit: cover;
+            background: var(--color-border);
+        }
+
+        .actions-cell {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: flex-end;
+        }
+
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid var(--color-border);
+            background: transparent;
+            color: var(--color-text-dim);
+        }
+
+        .action-btn:hover {
+            color: var(--color-text);
+            border-color: var(--color-text);
+        }
+
+        /* Switch */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #333;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked+.slider {
+            background-color: var(--color-primary);
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Modal Styles */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        .modal-admin {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            width: 100%;
+            max-width: 550px;
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            color: #999;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input {
+            width: 100%;
+            background: var(--color-bg);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            color: var(--color-text);
+            font-family: inherit;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(196, 143, 90, 0.2);
+            color: var(--color-primary);
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            transform: translateY(150%);
+            transition: transform 0.4s;
+            z-index: 2000;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+        }
+    </style>
+    <script>
+        // Auth Check BEFORE anything loads
+        if (!sessionStorage.getItem('admin_token')) {
+            window.location.href = 'login.html';
+        } else {
+            document.addEventListener('DOMContentLoaded', () => {
+                document.body.classList.add('auth-ok');
+            });
+        }
+    </script>
+</head>
+
+<body>
+
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <a href="../index.html" class="brand-admin">
+                <i class="fas fa-utensils"></i>
+                <span>LA PULPE</span>
+            </a>
+            <ul class="nav-list">
+                <li class="nav-item active"><i class="fas fa-th-list"></i> Gestión Carta</li>
+                <li class="nav-item" onclick="openSpecialMenuModal()"><i class="fas fa-star"></i> Menú del Día</li>
+            </ul>
+            <div style="margin-top: auto; display: flex; flex-direction: column; gap: 0.5rem;">
+                <button class="btn btn-primary" style="width: 100%;" onclick="saveAllChanges()">
+                    <i class="fas fa-save"></i> Guardar Todo
+                </button>
+                <button class="btn btn-outline" style="width: 100%;" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Salir
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header>
+                <div>
+                    <h1 style="font-size: 2rem;">Gestión de la Carta</h1>
+                    <p style="color: var(--color-text-dim);">Administra los platos y el menú especial.</p>
+                </div>
+                <button class="btn btn-primary" onclick="openAddModal()">
+                    <i class="fas fa-plus"></i> Nuevo Plato
+                </button>
+            </header>
+
+            <!-- Special Menu Toggle Card -->
+            <div class="special-menu-card">
+                <div>
+                    <h3 id="adminSpecialTitle">Menú del Día</h3>
+                    <p id="adminSpecialDesc" style="color: var(--color-text-dim); font-size: 0.9rem;">Cargando...</p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1.5rem;">
+                    <button class="btn btn-outline" onclick="openSpecialMenuModal()"><i class="fas fa-edit"></i>
+                        Configurar</button>
+                    <label class="switch">
+                        <input type="checkbox" id="specialMenuStatus" onchange="toggleSpecialMenu()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div id="categories-container">
+                <!-- Populated by admin.js -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Plato -->
+    <div class="overlay" id="modalOverlay">
+        <div class="modal-admin">
+            <h2 id="modalTitle" style="margin-bottom: 1.5rem;">Nuevo Plato</h2>
+            <form id="itemForm">
+                <input type="hidden" id="editCategoryId">
+                <input type="hidden" id="editItemIndex">
+                <div class="form-group">
+                    <label class="form-label">Categoría</label>
+                    <select id="itemCategory" class="form-input" required>
+                        <option value="caldeiros">Caldeiros</option>
+                        <option value="bocadillos">Bocadillos</option>
+                        <option value="especialidades">Especialidades</option>
+                        <option value="tierra-mar">Tierra y Mar</option>
+                        <option value="postres">Postres</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Nombre</label>
+                    <input type="text" id="itemName" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Precio (€)</label>
+                    <input type="number" step="0.01" id="itemPrice" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Descripción</label>
+                    <textarea id="itemDesc" class="form-input" rows="2"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">URL Imagen (opcional)</label>
+                    <input type="text" id="itemImage" class="form-input" placeholder="img/nombre.png o URL externa">
+                </div>
+                <div class="form-group"
+                    style="display: flex; align-items: center; gap: 0.75rem; background: rgba(196, 143, 90, 0.1); padding: 0.75rem 1rem; border-radius: 8px; border: 1px dashed var(--color-primary);">
+                    <input type="checkbox" id="itemIsHero" style="width: 18px; height: 18px; cursor: pointer;">
+                    <label for="itemIsHero" class="form-label"
+                        style="margin-bottom: 0; cursor: pointer; color: var(--color-primary); font-weight: 600;">
+                        Plato Destacado (ancho completo con imagen visible)
+                    </label>
+                </div>
+                <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem;">
+                    <button type="button" class="btn btn-outline" onclick="closeModal()">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Menú del Día -->
+    <div class="overlay" id="specialMenuModal">
+        <div class="modal-admin">
+            <h2 style="margin-bottom: 1.5rem;">Configurar Menú del Día</h2>
+            <form id="specialMenuForm">
+                <div class="form-group">
+                    <label class="form-label">Título (Ej: Menú del Día, Menú Degustación)</label>
+                    <input type="text" id="specialTitle" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Precio (€)</label>
+                    <input type="text" id="specialPrice" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Subtítulo / Incluye</label>
+                    <input type="text" id="specialDesc" class="form-input" placeholder="Pan, postre y bebida...">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Primeros (uno por línea)</label>
+                    <textarea id="specialFirsts" class="form-input" rows="4"
+                        placeholder="Sopa de marisco&#10;Ensalada mixta"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Segundos (uno por línea)</label>
+                    <textarea id="specialSeconds" class="form-input" rows="4"
+                        placeholder="Pechuga a la plancha&#10;Bacalao con pisto"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Postres (uno por línea)</label>
+                    <textarea id="specialDesserts" class="form-input" rows="4"
+                        placeholder="Tarta de Santiago&#10;Flan de huevo"></textarea>
+                </div>
+                <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem;">
+                    <button type="button" class="btn btn-outline" onclick="closeSpecialModal()">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Actualizar Menú</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="toast" class="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Cambios guardados</span>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script src="admin.js"></script>
+</body>
+
+</html>

@@ -10,7 +10,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -46,6 +46,58 @@
         </div>
     </section>
 
+    <!-- SPECIAL MENU SECTION -->
+    <section id="special-menu-container" class="container reveal"
+        style="display: none; padding: 2rem 0; margin-top: -2rem; position: relative; z-index: 10;">
+        <div
+            style="background: var(--color-surface); border: 2px solid var(--color-primary); border-radius: 20px; padding: 2.5rem; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+            <div
+                style="display: inline-block; background: var(--color-primary); color: white; padding: 0.25rem 1rem; border-radius: 50px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1rem;">
+                Recomendación del Día</div>
+            <h2 id="special-menu-title"
+                style="font-family: var(--font-display); font-size: 2.5rem; color: var(--color-accent); margin-bottom: 0.5rem;">
+                Menú del Día</h2>
+            <p id="special-menu-desc"
+                style="color: var(--color-text-secondary); font-style: italic; margin-bottom: 2rem;">Incluye pan, postre
+                y bebida</p>
+
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2.5rem; text-align: left;">
+                <div
+                    style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 15px; border: 1px solid var(--color-border);">
+                    <h3
+                        style="color: var(--color-primary); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; border-bottom: 1px solid rgba(196, 143, 90, 0.3); padding-bottom: 0.5rem;">
+                        Primeros</h3>
+                    <ul id="special-firsts"
+                        style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; color: var(--color-text);">
+                    </ul>
+                </div>
+                <div
+                    style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 15px; border: 1px solid var(--color-border);">
+                    <h3
+                        style="color: var(--color-primary); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; border-bottom: 1px solid rgba(196, 143, 90, 0.3); padding-bottom: 0.5rem;">
+                        Segundos</h3>
+                    <ul id="special-seconds"
+                        style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; color: var(--color-text);">
+                    </ul>
+                </div>
+                <div
+                    style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 15px; border: 1px solid var(--color-border);">
+                    <h3
+                        style="color: var(--color-primary); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; border-bottom: 1px solid rgba(196, 143, 90, 0.3); padding-bottom: 0.5rem;">
+                        Postre</h3>
+                    <ul id="special-desserts"
+                        style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; color: var(--color-text);">
+                    </ul>
+                </div>
+            </div>
+
+            <div id="special-menu-price"
+                style="font-size: 2.2rem; font-weight: 700; color: var(--color-primary); border-top: 1px solid var(--color-border); padding-top: 1.5rem; display: inline-block;">
+                15,00€</div>
+        </div>
+    </section>
+
     <!-- Menu Navigation (Sticky) -->
     <div class="category-nav-wrapper">
         <div class="container">
@@ -69,93 +121,8 @@
                 <div class="section-divider"></div>
                 <p>La esencia de Galicia preparada a fuego lento y con los mejores ingredientes.</p>
             </div>
-
             <div class="menu-grid grid-caldeiros">
-                <!-- Hero Dish -->
-                <div class="menu-item menu-item-hero"
-                    data-image="https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80">
-                    <div class="hero-image-placeholder">
-                        <img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
-                            alt="Pulpo a la Gallega" style="width:100%; height:100%; object-fit:cover;">
-                    </div>
-                    <div class="item-details">
-                        <div class="item-name" style="font-size: 2rem; margin-bottom: 1rem;">Tabla de Pulpo a la Gallega
-                        </div>
-                        <div class="item-desc" style="font-size: 1.1rem; margin-bottom: 1.5rem;">Nuestro plato estrella.
-                            Tradicional pulpo gallego servido con cachelos, pimentón de la Vera y aceite de oliva virgen
-                            extra.</div>
-                        <div class="item-price" style="font-size: 1.8rem;">€18,90</div>
-                        <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                    </div>
-                </div>
-
-                <div class="menu-item"
-                    data-image="https://images.unsplash.com/photo-1546241072-48010ad28c2c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80">
-                    <div class="item-header">
-                        <span class="item-name">Cuenco de Patatas</span>
-                        <span class="item-price">€2,70</span>
-                    </div>
-                    <p class="item-desc">Cachelos con aceite de oliva y pimentón.</p>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-
-                <div class="menu-item"
-                    data-image="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80">
-                    <div class="item-header">
-                        <span class="item-name">Ensalada Ventresca</span>
-                        <span class="item-price">€12,90</span>
-                    </div>
-                    <p class="item-desc">Tomate fresco, cebolla y ventresca de atún de alta calidad.</p>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-
-                <div class="menu-item"
-                    data-image="https://images.unsplash.com/photo-1599481238640-4c1288750d7a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80">
-                    <div class="item-header">
-                        <span class="item-name">Anchoas del Cantábrico</span>
-                        <span class="item-price">€16,20</span>
-                    </div>
-                    <p class="item-desc">Selección premium, 12/15 unidades.</p>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-
-                <div class="menu-item"
-                    data-image="https://images.unsplash.com/photo-1510629954389-c1e0da47d414?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80">
-                    <div class="item-header">
-                        <span class="item-name">Torta del Casar</span>
-                        <span class="item-price">€13,70</span>
-                    </div>
-                    <p class="item-desc">Ración media, cremosa e intensa.</p>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-
-                <div class="menu-item"
-                    data-image="https://images.unsplash.com/photo-1534422298391-e4f8c170dbbd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80">
-                    <div class="item-header">
-                        <span class="item-name">Zamburiñas (8 uds.)</span>
-                        <span class="item-price">€14,90</span>
-                    </div>
-                    <p class="item-desc">A la plancha con un toque de limón y perejil.</p>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Calamares "a lo Otero"</span>
-                        <span class="item-price">€15,30</span>
-                    </div>
-                    <p class="item-desc">Fritos a nuestra manera especial.</p>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Almejas en Salsa</span>
-                        <span class="item-price">€21,80</span>
-                    </div>
-                    <p class="item-desc">Frescas, cocinadas en su salsa marinera.</p>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
+                <!-- Populated by script.js -->
             </div>
         </section>
 
@@ -165,73 +132,8 @@
                 <h2>Bocadillos <span>Clásicos</span></h2>
                 <div class="section-divider"></div>
             </div>
-
             <div class="menu-grid bocadillos-grid">
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Salchichas Frescas</span>
-                        <span class="item-price">€6,00</span>
-                    </div>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Magreta</span>
-                        <span class="item-price">€6,00</span>
-                    </div>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Lomo Fresco</span>
-                        <span class="item-price">€6,00</span>
-                    </div>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Bacon</span>
-                        <span class="item-price">€6,00</span>
-                    </div>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Catalana</span>
-                        <span class="item-price">€6,50</span>
-                    </div>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-                <div class="menu-item"
-                    data-image="https://images.unsplash.com/photo-1550507992-eb63ffee0847?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80">
-                    <div class="item-header">
-                        <span class="item-name">Calamares</span>
-                        <span class="item-price">€6,00</span>
-                    </div>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Mero</span>
-                        <span class="item-price">€7,50</span>
-                    </div>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Castillos</span>
-                        <span class="item-price">€6,50</span>
-                    </div>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Mollete de Oreja</span>
-                        <span class="item-price">€6,50</span>
-                    </div>
-                    <p class="item-desc">Con huevo.</p>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
+                <!-- Populated by script.js -->
             </div>
         </section>
 
@@ -241,49 +143,8 @@
                 <h2>Nuestras <span>Especialidades</span></h2>
                 <div class="section-divider"></div>
             </div>
-
             <div class="menu-grid">
-                <div class="menu-item"
-                    data-image="https://images.unsplash.com/photo-1624462966581-bc6d768cbce5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80">
-                    <div class="item-header">
-                        <span class="item-name">Tortilla Estilo Betanzos</span>
-                        <span class="item-price">€9,60</span>
-                    </div>
-                    <p class="item-desc">Poco cuajada, con huevos de corral.</p>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Dado de Solomillo</span>
-                        <span class="item-price">€13,80</span>
-                    </div>
-                    <p class="item-desc">Con nuestra salsa especial.</p>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Chuletón Vaca Gallega</span>
-                        <span class="item-price">€24,60</span>
-                    </div>
-                    <p class="item-desc">250 grs. aprox. de sabor intenso.</p>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Pimientos de Padrón</span>
-                        <span class="item-price">€6,00</span>
-                    </div>
-                    <p class="item-desc">Unos pican y otros no.</p>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Patatas Fritas</span>
-                        <span class="item-price">€4,90</span>
-                    </div>
-                    <p class="item-desc">Caseras y crujientes.</p>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
+                <!-- Populated by script.js -->
             </div>
         </section>
 
@@ -293,118 +154,8 @@
                 <h2>Tierra y <span>Mar</span></h2>
                 <div class="section-divider"></div>
             </div>
-
             <div class="menu-grid">
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Jamón Ibérico (Mano)</span>
-                        <span class="item-price">€21,90</span>
-                    </div>
-                    <p class="item-desc">100 grs. cortado a cuchillo.</p>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Tabla Jamón Ibérico</span>
-                        <span class="item-price">€9,90</span>
-                    </div>
-                    <p class="item-desc">80 grs. en tempura.</p>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Revuelto de Morcilla</span>
-                        <span class="item-price">€8,80</span>
-                    </div>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Revuelto de Trigueros</span>
-                        <span class="item-price">€9,90</span>
-                    </div>
-                    <p class="item-desc">Con gambas y ajetes.</p>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Croquetas Jamón (6uds)</span>
-                        <span class="item-price">€11,90</span>
-                    </div>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Sepia a la Plancha</span>
-                        <span class="item-price">€13,20</span>
-                    </div>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Chipirones Plancha</span>
-                        <span class="item-price">€12,40</span>
-                    </div>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Bacalao con Pisto</span>
-                        <span class="item-price">€12,90</span>
-                    </div>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Higadillas Fritas</span>
-                        <span class="item-price">€9,90</span>
-                    </div>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Higaditos de Pollo</span>
-                        <span class="item-price">€9,90</span>
-                    </div>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Mollejas de Cordero</span>
-                        <span class="item-price">€14,10</span>
-                    </div>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Alas de Pollo (4uds)</span>
-                        <span class="item-price">€9,00</span>
-                    </div>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Cascaritas de Pollo</span>
-                        <span class="item-price">€11,90</span>
-                    </div>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Oreja a la Plancha</span>
-                        <span class="item-price">€11,10</span>
-                    </div>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-                <div class="menu-item"
-                    data-image="https://images.unsplash.com/photo-1625944230945-1744a469228b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80">
-                    <div class="item-header">
-                        <span class="item-name">Cachopo Asturiano</span>
-                        <span class="item-price">€16,80</span>
-                    </div>
-                    <p class="item-desc">280 grs. aprox.</p>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
+                <!-- Populated by script.js -->
             </div>
         </section>
 
@@ -414,46 +165,8 @@
                 <h2>Dulce <span>Final</span></h2>
                 <div class="section-divider"></div>
             </div>
-
             <div class="menu-grid">
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Tarta de Santiago</span>
-                        <span class="item-price">€5,70</span>
-                    </div>
-                    <p class="item-desc">Clásica tarta de almendras.</p>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Coulant Chocolate</span>
-                        <span class="item-price">€6,20</span>
-                    </div>
-                    <p class="item-desc">Con helado.</p>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Tarta de Queso</span>
-                        <span class="item-price">€6,10</span>
-                    </div>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Cañas de Crema</span>
-                        <span class="item-price">€5,90</span>
-                    </div>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Bola de Helado</span>
-                        <span class="item-price">€2,90</span>
-                    </div>
-                    <p class="item-desc">Vainilla, fresa o chocolate.</p>
-                    <button class="add-btn" onclick="addToCart(this)">Añadir al Pedido</button>
-                </div>
+                <!-- Populated by script.js -->
             </div>
         </section>
 
@@ -491,7 +204,7 @@
                     <p>Sábados: 9:00 - 00:00</p>
                     <p>Domingos: 9:00 - 22:00</p>
                 </div>
-                <div class="footer-col">
+                <div class="footer-col" style="display: flex; flex-direction: column; gap: 0.5rem;">
                     <h4>Síguenos</h4>
                     <a href="#">Instagram</a>
                     <a href="#">Facebook</a>
@@ -552,7 +265,8 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/script.js"></script>
 </body>
 
 </html>
